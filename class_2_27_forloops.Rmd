@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
 ```
 
 ```{r}
@@ -17,7 +17,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```
 
-# Task 1: Use for loop to compute for total yield after 10 years
+For Loop Example: Make a random sample of fertilizer application, 10 values with mean of 5 and standard deviation of 0.5. (use rnorm function to do this)
+
+Function to compute crop yield is as follows: yield= 1.8∗fertilizer^2 − 0.5∗fertilize r+ 0.1∗TP
+and TP is mean precipitation in cm
+
+
+## Task 1: Use for loop to compute for total yield after 10 years
 ```{r}
 
 
@@ -37,7 +43,7 @@ for(yr in 1:10){
 
 sum(crop$yield)
 ```
-# Task 2: Create a function that takes as input a single value for annual fertilizer and annual total precipitation and returns yield
+## Task 2: Create a function that takes as input a single value for annual fertilizer and annual total precipitation and returns yield
 ```{r}
 
 # defining function and variables -- NOTE: before a function can be run, its variables (ie: fertilizer and TP) must be defined using the function() command.
@@ -53,15 +59,15 @@ compute_yield(fertilizer, TP)
 
 sum(compute_yield(fertilizer, TP))
 
+
+```
+## Task 3: Modify your function so that it returns total yield if the user inputs a vector of fertilizer and a vector of precipitation
+```{r}
 # Now computing yield with vectors inputted for fertilizer and Total Precipitation
 
 compute_yield(fertilizer =c(2,3,4), TP = c(10,20,30))
 
 sum(compute_yield(fertilizer, TP))
-```
-# Task 3: Modify your function so that it returns total yield if the user inputs a vector of fertilizer and a vector of precipitation
-```{r}
-
 
 ```
 
