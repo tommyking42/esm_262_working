@@ -1,0 +1,67 @@
+---
+title: "class_2_27"
+author: "Tommy King"
+date: "2023-02-27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# developing for loops using a count variable to track the amount of loops 
+
+# for the first year, must manually set it because there is no prior year. Once done, then you can loop it, starting at year 2
+
+
+```
+
+# Task 1: Use for loop to compute for total yield after 10 years
+```{r}
+
+
+#defining the function
+fertilizer = rnorm(n = 10, mean = 5, sd=0.5)
+
+TP = 20
+
+# converting to data frame
+crop = data.frame(fertilizer = fertilizer)
+crop$yield = NA
+
+#creating for loop for 10 values 
+for(yr in 1:10){
+  crop$yield[yr] = 1.8*fertilizer[yr]^2 - 0.5*fertilizer[yr] + 0.1*TP
+}
+
+sum(crop$yield)
+```
+# Task 2: Create a function that takes as input a single value for annual fertilizer and annual total precipitation and returns yield
+```{r}
+
+# defining function and variables -- NOTE: before a function can be run, its variables (ie: fertilizer and TP) must be defined using the function() command.
+
+compute_yield = function(fertilizer, TP){
+  yield = 1.8*fertilizer^2 - 0.5*fertilizer + 0.1*TP
+  
+  return(yield)
+}
+
+# applying function
+compute_yield(fertilizer, TP)
+
+sum(compute_yield(fertilizer, TP))
+
+# Now computing yield with vectors inputted for fertilizer and Total Precipitation
+
+compute_yield(fertilizer =c(2,3,4), TP = c(10,20,30))
+
+sum(compute_yield(fertilizer, TP))
+```
+# Task 3: Modify your function so that it returns total yield if the user inputs a vector of fertilizer and a vector of precipitation
+```{r}
+
+
+```
+
