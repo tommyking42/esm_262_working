@@ -12,7 +12,7 @@ pb = function(m, A, V, crolling = 0.015, cdrag = 0.3, p_air = 1.2, g = 9.8 ){
   # coef2: p_air (density of air)
   # coef3: crolling = 0.015
   # coef4: cdrag = 0.3
-  pb_result = m*g*V*crolling + 1/2 * A*p_air*(V^3)
+  pb_result = m*g*V*crolling + (.5 * A*p_air*(V^3))
 return(pb_result)
 }
 

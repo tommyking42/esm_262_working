@@ -1,0 +1,57 @@
+---
+title: "power_gen_orig"
+author: "Tommy King"
+date: "2023-02-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set("power_gen_orig.R", echo = TRUE)
+
+source("power_gen_orig.R", echo = TRUE)
+#install packages 
+library(janitor)
+library(dplyr)
+
+pb1 <- pb(31752, 16, 30)
+
+pb1a <- pb1/3.6 
+
+pb2 <- pb(31752, 16, 80)
+pb3 <- pb(31752, 16, 120)
+pb4 <- pb(31752, 16, 40)
+pb5 <- pb(31752, 16, 5)
+
+# Lighter vehicle 
+pbl1 <- pb(15000, 16, 30)
+pbl1a <- pbl1/3.6
+pbl2 <- pb(15000, 16, 80)
+pbl3 <- pb(15000, 16, 120)
+pbl4 <- pb(15000, 16, 40)
+pbl5 <- pb(15000, 16, 5)
+
+
+
+
+```
+
+## Heavy Truck Calculations
+### 30 m/s = `r pb1a` 
+### 80km/hr = `r pb2` 
+### 120 km/hr = `r pb3`
+### 40km/hr = `r pb4`
+### 5 km/hr = `r pb5` 
+
+## Lighter Truck Calculations
+### 30 m/s = `r pbl1a` 
+### 80km/hr = `r pbl2` 
+### 120 km/hr = `r pbl3`
+### 40km/hr = `r pbl4`
+### 5 km/hr = `r pbl5` 
+
+```{r}
+
+
+```
+
+
