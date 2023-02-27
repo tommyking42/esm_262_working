@@ -12,6 +12,7 @@ source("power_gen_orig.R", echo = TRUE)
 #install packages 
 library(janitor)
 library(dplyr)
+library(ggplot2)
 
 pb1 <- pb(31752, 16, 30)
 
@@ -50,7 +51,24 @@ pbl5 <- pb(15000, 16, 5)
 ### 5 km/hr = `r pbl5` 
 
 ```{r}
+source("power_gen_orig.R", echo = TRUE)
 
+nsample = 100
+speeds = rnorm(mean= 25, sd = 4, n=nsample)
+
+# create a data fram to store results 
+
+results = data.frame(speed=speeds, power = NA)
+
+head(results)
+
+# if you only have one input and everything else is the same, R is smart enough to create a set of outputs 
+
+results$power = pb(V=speeds, A = 25, m = 20000)
+
+# plot 
+
+ggplot(results, aes(speed, power/1000)) + geom_point()+ labs(x = "speed in m/s", y = "power in kW")
 
 ```
 
