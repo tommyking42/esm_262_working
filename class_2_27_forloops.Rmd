@@ -34,6 +34,8 @@ TP = 20
 
 # converting to data frame
 crop = data.frame(fertilizer = fertilizer)
+
+#creating new column for "yield" - setting it to NA for placeholder
 crop$yield = NA
 
 #creating for loop for 10 values 
@@ -68,6 +70,11 @@ sum(compute_yield(fertilizer, TP))
 compute_yield(fertilizer =c(2,3,4), TP = c(10,20,30))
 
 sum(compute_yield(fertilizer, TP))
+
+```
+## Error Checking: Using stop() and warning() functions to check for errors
+```{r}
+# stop actually stops the run, but the warning doesn't stop the run, simply provides a note that something may be awry 
 
 ```
 
