@@ -15,6 +15,8 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE)
 # for the first year, must manually set it because there is no prior year. Once done, then you can loop it, starting at year 2
 
 
+
+
 ```
 
 For Loop Example: Make a random sample of fertilizer application, 10 values with mean of 5 and standard deviation of 0.5. (use rnorm function to do this)
@@ -77,4 +79,46 @@ sum(compute_yield(fertilizer, TP))
 # stop actually stops the run, but the warning doesn't stop the run, simply provides a note that something may be awry 
 
 ```
+
+# Class March 1st, -- Nesting For Loops 
+## Example 1 - Net Present Value
+```{r}
+# calculate NPV for: a range of different interest rates, a range of damages, that may be incurred 10 years in the future 
+
+# define inputs 
+source("NPV.R", echo = TRUE)
+
+#generate inputs (interest rates, damages)
+damages = c(25, 50, 100)
+damages
+
+interest_rates = seq(from=0.01, to=0.04, by=0.005)
+interest_rates
+
+#define year 
+year = 10
+
+# generate a dataframe to store results
+NPVs = data.frame(matrix(nrow=length(damages), ncol=length(interest_rates)))
+
+View(NPVs)
+
+# now use a nested for loop to populate the dataframe
+for(i in 1:length(damages)){
+  
+  for(j in 1:length(interest_rates)){
+    
+    NPVs[i,j] = NPV(value= damages[i], discount = interest_rates[j], time = year)
+  }
+}
+
+
+# now make it pretty by renaming columns and rows
+colnames(NPVs) = interest_rates 
+rownames(NPVs) = damages
+
+NPVs
+
+```
+
 
