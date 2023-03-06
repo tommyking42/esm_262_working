@@ -23,7 +23,8 @@ cars_df = data.frame(name = c("A", "B", "C", "D"), mass = c(10000, 65000, 38000,
 
 #sample vector for speed 
 nsample = 200
-speeds = rnorm(mean = 80, sd=10, n=nsample)
+mean_speed = log(80*0.28)
+speeds = rnorm(mean = mean_speed, sd=0.125*mean_speed, n=nsample)
 
 #Empty data frame for power
 speeds_df = data.frame(matrix(nrow=length(speeds), ncol =length(cars_df$name)))
@@ -42,11 +43,44 @@ speeds_df2 = speeds_df %>% pivot_longer(cols=everything(), names_to="car", value
 head(speeds_df2)
 
 #quick visualization 
-speeds_plot = ggplot(speeds_df2, aes(car, power, fill=car)) + geom_boxplot() +ggtitle("For Loop Method")
+speeds_plot = ggplot(speeds_df2, aes(car, power, fill=car)) + geom_boxplot() +ggtitle("For Loop Method") + labs(y = "Power (w)", x = "Car Type", fill = "Car Type")
+
+speeds_plot
 
 speeds_df %>% map(mean)
 
 ```
+
+```{r}
+#Using P Map Method 
+
+# manually creating sample of 200 with mean speed of 80km/hr, but bringing it to m/s
+nsample = 200 
+mean_speed = log(80*0.28)
+
+speeds_df_pmap = pmap(list(A = cars_df$area, m = cars_df$mass), power, V=speeds)
+
+#convert to dataframe
+speeds_df_pmap = as.data.frame(speeds_df_pmap, col.names = cars_df$name)
+
+#assign x and y variables to df 
+speeds_pmap2 = speeds_df_pmap %>% pivot_longer(cols=everything(), names_to = "carweights", values_to = "power")
+
+#create pmap boxplot 
+pmap_plot = ggplot(speeds_pmap2, aes(carweights, power, fill = carweights)) + geom_boxplot() + ggtitle("Pmap Method") + labs(y = "Power (Kwh)", x = "Car Type", fill = "Car Type")
+
+pmap_plot
+
+```
+
+```{r}
+#mapping means and max
+speeds_df %>% map(mean)
+speeds_df %>% map(max)
+speeds_df_pmap %>% map(mean)
+speeds_df_pmap %>% map(max)
+```
+
 
 
 
