@@ -1,0 +1,52 @@
+---
+title: "Assignment 3"
+author: "Tommy King"
+date: "2023-03-06"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+library(purrr)
+library(ggplot2)
+library(tidyverse)
+
+```
+
+```{r}
+source("car_power.R")
+
+#New darta frame specifying all cars in analysis 
+
+cars_df = data.frame(name = c("A", "B", "C", "D"), mass = c(10000, 65000, 38000, 5000), area = c(22,30,22,10))
+
+#sample vector for speed 
+nsample = 200
+speeds = rnorm(mean = 80, sd=10, n=nsample)
+
+#Empty data frame for power
+speeds_df = data.frame(matrix(nrow=length(speeds), ncol =length(cars_df$name)))
+
+# nested for loop to create power outputs 
+for(i in 1:length(cars_df$mass)){
+  for(j in 1:nsample){
+    speeds_df[j,i] = power(m = cars_df$mass[i], V = speeds[j], A = cars_df$area[i])
+  }
+}
+
+#name columns of speeds_df 
+colnames(speeds_df) = cars_df$name
+
+speeds_df2 = speeds_df %>% pivot_longer(cols=everything(), names_to="car", values_to = "power")
+head(speeds_df2)
+
+#quick visualization 
+speeds_plot = ggplot(speeds_df2, aes(car, power, fill=car)) + geom_boxplot() +ggtitle("For Loop Method")
+
+speeds_df %>% map(mean)
+
+```
+
+
+
