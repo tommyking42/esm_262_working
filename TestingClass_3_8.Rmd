@@ -1,0 +1,133 @@
+---
+title: "Class 3_8"
+author: "Tommy King"
+date: "2023-03-08"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(testthat)
+library(tidyverse)
+library(ggplot2)
+library(devtools)
+
+# notes
+
+
+```
+- test_dir(“name”) :runs all tests in the “name” subdirectory (all files beginning with the word “test”
+
+ - test_file(“name”): runs all the tests in a file called “name”
+
+
+Notes: 
+
+functions that you can use to make sure your code is working the way you think it should be working
+
+ - expect_true(condition)
+ - expect_equal(value, value)
+ - expect_match(string1, string2)
+ - expect_null(value)
+ - expect_length(object, n)
+ 
+```{r}
+# runs a test on a statement and checks to see if it is corrrect 
+
+expect_equal(2+2, 4)
+
+# this one should 'throw and error'
+
+expect_equal(2+5, 4)
+
+```
+ 
+```{r}
+# we can also use expect_true()
+# works with variables too
+
+a = 200
+expect_true(a > 2)
+
+a = 0
+expect_true(a>2)
+
+```
+
+```{r}
+# example with matches 
+
+fish1 = "salmon"
+fish2 = "trout"
+
+expect_match(fish1, fish2)
+```
+
+```{r}
+# lengths 
+
+a = seq(from=1, to=10)
+
+expect_length(a, 10)
+expect_length(a, 11)
+```
+
+
+More in-depth examples using 'NPV.r'
+
+```{r}
+source("NPV.R")
+
+# testing if future value is positive (should always be positive)
+
+# this should work
+futurevalue = 100
+expect_true(NPV(value=futurevalue, time =10, discount = 0.01) >0) 
+
+#this should give us an error
+futurevalue = -100
+expect_true(NPV(value=futurevalue, time =10, discount = 0.01) >0) 
+```
+
+```{r}
+# what if function returns a list? 
+# we can se the built in summary function to see how this works
+
+testdata = rnorm(mean = 25, sd = 3, n=100)
+summary(testdata)
+
+# it is actually returning a list, but what are the names? 
+
+names(summary(testdata))
+
+# now we can specify them 
+summary(testdata)["Max."]
+
+#and use in a test to make sure this function works
+expect_true(summary(testdata)["Max."]-summary(testdata)["Min."]>0)
+```
+
+
+Lets create a function with an error
+
+We want a function that computes total rainfall and total recharge from a daily time series of rainfall
+
+Daily recharge of water to soil after rain is:
+
+recharge = daily rainfall - interception
+
+inputs: time series of daily rainfall (mm), single value interception (default 1mm)
+
+outputs: totalrainfall (mm), totalrecharge (mm)
+
+```{r}
+effective_rain = function(rainfall, inteception){
+  
+  # get total rain 
+  totalrain = sum(rainfall)
+  
+  
+}
+```
+

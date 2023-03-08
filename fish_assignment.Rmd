@@ -1,0 +1,45 @@
+---
+title: "Fish Assignment"
+author: "Tommy King"
+date: "2023-03-06"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(purrr)
+```
+
+```{r}
+
+#read in fish table; use read.delim() to get the "x" out of the table
+possible.fish <- read.delim("fish.txt")
+head(possible.fish)
+
+
+# defining parameters of function
+fish_function = function(possible.fish){
+  fish_vector <- as.vector(possible.fish[,1])
+  fish_factor <- as.factor(fish_vector)
+  
+  #output from function
+  rarest_fish <- names(which.min(summary(fish_factor)))
+  most_common <- names(which.max(summary(fish_factor)))
+  total_fish <- sum(summary(fish_factor))
+  final_list <- c(most_common, rarest_fish, total_fish)
+  
+  return(final_list)
+}
+
+# running function for output
+fish_function(possible.fish)
+
+
+
+
+
+
+```
+

@@ -56,7 +56,7 @@ source("power_gen_orig.R", echo = TRUE)
 nsample = 100
 speeds = rnorm(mean= 25, sd = 4, n=nsample)
 
-# create a data fram to store results 
+# create a data frame to store results 
 
 results = data.frame(speed=speeds, power = NA)
 
